@@ -18,3 +18,9 @@ plink2 --pfile 6.plinkmaf_c22_snps --pheno ukb_phenotype_data.pheno --covar ukb_
   2) `final_gwas_results.MetaboHealth_Score.glm.linear`
 
 ## Visualisation tests
+# QQ plot 
+- run `qq_plot.R`
+
+## Manhattan plot
+- run `manhattan_plot.R`
+
