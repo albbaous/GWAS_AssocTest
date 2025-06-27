@@ -26,28 +26,32 @@ gwas$BP  <- as.numeric(gwas$POS)
 gwas$P   <- as.numeric(gwas$P)
 gwas$ID  <- trimws(gwas$ID)
 
-# Identify suggestive SNPs (p < 1e-5)
-suggestive_snps_df <- subset(gwas, !is.na(P) & P < 1e-5)
-suggestive_snps_sorted <- suggestive_snps_df[order(suggestive_snps_df$P), ]
-suggestive_snps <- suggestive_snps_sorted$ID
+# Calculate Bonferroni threshold for 570,731 SNPs
+n_snps <- 570731
+bonf_threshold <- 0.05 / n_snps
+cat("Bonferroni significance threshold:", format(bonf_threshold, scientific = TRUE), "\n")
 
-# Print top suggestive SNPs
-cat("Top Suggestive SNPs (P < 1e-5):\n")
-print(suggestive_snps_sorted[, c("ID", "P")])
+# Identify Bonferroni-significant SNPs
+sig_snps_df    <- subset(gwas, !is.na(P) & P < bonf_threshold)
+sig_snps_sorted <- sig_snps_df[order(sig_snps_df$P), ]
 
-# Create Manhattan plot highlighting suggestive SNPs
-pdf("manhattan_plot_suggestive_highlighted.pdf", width = 12, height = 6)
+# Print Bonferroni-significant SNPs
+cat("Bonferroni-significant SNPs (P <", format(bonf_threshold, scientific = TRUE), "):\n")
+print(sig_snps_sorted[, c("ID", "CHR", "BP", "P")])
+
+# Create Manhattan plot highlighting only Bonferroni-significant SNPs
+pdf("manhattan_plot_bonferroni_highlighted.pdf", width = 12, height = 6)
 
 manhattan(
   gwas,
-  chr = "CHR",
-  bp = "BP",
-  snp = "ID",
-  p = "P",
-  genomewideline = -log10(5e-8),
-  suggestiveline = -log10(1e-5),
-  highlight = suggestive_snps,
-  main = "MetaboHealth Score GWAS: Suggestive SNPs Highlighted"
+  chr           = "CHR",
+  bp            = "BP",
+  snp           = "ID",
+  p             = "P",
+  genomewideline = -log10(bonf_threshold),
+  suggestiveline = FALSE,
+  highlight     = sig_snps_sorted$ID,
+  main          = "MetaboHealth Score GWAS: Bonferroni-significant SNPs"
 )
 
 dev.off()
