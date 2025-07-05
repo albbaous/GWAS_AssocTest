@@ -25,6 +25,11 @@ plink2 --pfile 6.plinkmaf_c22_snps --pheno ukb_phenotype_data.pheno --covar ukb_
 FOR BONFERRONI ADJUSTED
 - run `manhattan_plot.R`
 
-FOR FDR ADJUSTED 
+FOR Benjamini-Hochberg/FDR ADJUSTED 
 - run `manhattan_plot_FDR.r`
 
+### If Using Benjamini-Hochberg/FDR
+- go to LDmatrix
+- input the `.txt` file created by `manhattan_plot_FDR.r`
+- set it to `GRCH38 High Coverage`
+- get D and r2 stats - saved here as `d_ldsnps.txt' and 'r2_ldsnps.txt`
