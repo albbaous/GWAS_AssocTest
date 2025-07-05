@@ -1,7 +1,6 @@
 library(dplyr)
 
-# Example: GWAS data frame should have columns: CHR, BP, P, ID
-# gwas <- read.table("your_file.txt", header=TRUE)
+gwas <- read.table("FDR_significant_SNPs.txt", header=TRUE)
 
 # Define your regions as a named list: c(start, end)
 regions <- list(
@@ -22,8 +21,6 @@ lead_snps <- lapply(regions, function(region) {
 # View or output the lead SNPs
 print(lead_snps)
 write.csv(lead_snps, "lead_snps_table.csv", row.names=FALSE)
-
-# Assume your data frame is called 'gwas' and has columns: ID, CHR, BP, P
 
 # Find the SNP with the smallest p-value
 lead_snp <- gwas[which.min(gwas$P), ]
