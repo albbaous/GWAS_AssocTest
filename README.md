@@ -32,4 +32,4 @@ FOR Benjamini-Hochberg/FDR ADJUSTED
 - go to LDmatrix
 - input the `.txt` file created by `manhattan_plot_FDR.r`
 - set it to `GRCH38 High Coverage`
-- get D and r2 stats - saved here as `d_ldsnps.txt' and 'r2_ldsnps.txt`
+- get D and r2 stats - saved here as `d_ldsnps.txt` and `r2_inlds.txt`
