@@ -22,5 +22,9 @@ plink2 --pfile 6.plinkmaf_c22_snps --pheno ukb_phenotype_data.pheno --covar ukb_
 - run `qq_plot.R`
 
 ## Manhattan plot
+FOR BONFERRONI ADJUSTED
 - run `manhattan_plot.R`
+
+FOR FDR ADJUSTED 
+- run `manhattan_plot_FDR.r`
 
